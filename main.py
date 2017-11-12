@@ -29,6 +29,7 @@ while cam_quit == 0:
                             cv2.CHAIN_APPROX_SIMPLE)
     cnts = cnts[0] if imutils.is_cv2() else cnts[1]
     sd = DetectorLib.ShapeDetector()
+    cards = []
 
     for c in cnts:
         M = cv2.moments(c)
@@ -45,13 +46,15 @@ while cam_quit == 0:
                 cv2.drawContours(image, [c], -1, (0, 255, 0), 2)
                 cv2.putText(image, "Karta", (cX, cY), cv2.FONT_HERSHEY_SIMPLEX,
                         0.5, (255, 255, 255), 2)
-
-                #tutaj kopiuję wycinek z oryginalnego obrazu (wnętrze wykrytego konturu)
-                cv2.imshow("karta", sd.getArea(image, c))
+                cards.append(sd.getArea(image, c))
 
         #wyświetlanie do debugowania
         cv2.imshow("Image", image)
         cv2.imshow("thresh", thresh)
+
+        # tutaj kopiuję wycinek z oryginalnego obrazu (wnętrze wykrytego konturu)
+        for card in cards:
+            cv2.imshow("karta", card)
 
     key = cv2.waitKey(1) & 0xFF
     if key == ord("q"):
