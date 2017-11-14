@@ -54,14 +54,13 @@ while cam_quit == 0:
 
         # tutaj kopiuję wycinek z oryginalnego obrazu (wnętrze wykrytego konturu)
         for card in cards:
-            cv2.imshow("karta", card)
-
+            #cv2.imshow("karta", card)
+            preProc.cutCard(image,card);
     key = cv2.waitKey(1) & 0xFF
     if key == ord("q"):
         cam_quit = 1
 
 cv2.destroyAllWindows()
-videostream.release
 
 # todo main jest do posprzątania, ten środek można wrzucić do jakiejś nowej klasy
 # todo wykrywanie konturów powinno być robione na górnej połowie białego fragmentu obrazu (inaczej np. wychwytuje dłoń trzymającą kartę
