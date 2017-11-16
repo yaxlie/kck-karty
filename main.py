@@ -20,42 +20,18 @@ while cam_quit == 0:
 
     ret, frame = cap.read()
 
-    image = frame
-    ratio = image.shape[0] / float(image.shape[0])
-
     thresh = preProc.preprocess_image(frame)
-    # shape detector
-    cnts = cv2.findContours(thresh.copy(), cv2.RETR_EXTERNAL,
-                            cv2.CHAIN_APPROX_SIMPLE)
-    cnts = cnts[0] if imutils.is_cv2() else cnts[1]
-    sd = DetectorLib.ShapeDetector()
-    cards = []
 
-    for c in cnts:
-        M = cv2.moments(c)
-        if M["m00"] > 0:
-            cX = int((M["m10"] / M["m00"]) * ratio)
-            cY = int((M["m01"] / M["m00"]) * ratio)
+    cardsDetectod = DetectorLib.CardsDetector(frame, thresh)
 
-
-        if sd.detect(c):
-            c = c.astype("float")
-            c *= ratio
-            c = c.astype("int")
-            if len(c)>100:
-                cv2.drawContours(image, [c], -1, (0, 255, 0), 2)
-                cv2.putText(image, "Karta", (cX, cY), cv2.FONT_HERSHEY_SIMPLEX,
-                        0.5, (255, 255, 255), 2)
-                cards.append(sd.getArea(image, c))
-
-        #wyświetlanie do debugowania
-        cv2.imshow("Image", image)
-        cv2.imshow("thresh", thresh)
+    cards = cardsDetectod.detectCards()
+    cv2.imshow("thresh", thresh)
 
         # tutaj kopiuję wycinek z oryginalnego obrazu (wnętrze wykrytego konturu)
-        for card in cards:
-            #cv2.imshow("karta", card)
-            preProc.cutCard(image,card);
+    for card in cards:
+         #cv2.imshow("karta", card)
+        preProc.cutCard(frame, card)
+
     key = cv2.waitKey(1) & 0xFF
     if key == ord("q"):
         cam_quit = 1

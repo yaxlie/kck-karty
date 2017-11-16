@@ -5,7 +5,7 @@ import time
 
 def preprocess_image(image):
     """Returns a grayed, blurred, and adaptively thresholded camera image."""
-    
+
     gray = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
     blur = cv2.GaussianBlur(gray, (5, 5), 1)
     mean = np.mean(blur[::2] ** 1.1)
