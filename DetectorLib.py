@@ -10,12 +10,13 @@ class CardsDetector:
         pass
 
     def detect(self, c):
-        if len(c) > 50:
+        if len(c) > 100:
             peri = cv2.arcLength(c, True)
-            approx = cv2.approxPolyDP(c, 0.09 * peri, True)
+            approx = cv2.approxPolyDP(c, 0.10 * peri, True)
 
             return len(approx) == 4 or len(approx) == 5
-
+        else:
+            return False
 
     def getArea(self, image, contour):
         (x, y, w, h) = cv2.boundingRect(contour)
