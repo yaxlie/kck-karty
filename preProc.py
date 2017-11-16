@@ -2,16 +2,29 @@ import numpy as np
 import cv2
 import time
 
+from PIL import ImageEnhance, Image
+
 
 def preprocess_image(image):
     """Returns a grayed, blurred, and adaptively thresholded camera image."""
 
-    gray = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
-    blur = cv2.GaussianBlur(gray, (5, 5), 1)
-    mean = np.mean(blur * 1)
-    if(mean > 255):
-        mean=255
-    retval, thresh = cv2.threshold(blur, mean, 255, cv2.THRESH_BINARY)
+    img = adjust_gamma(image, 0.8)
+
+    img = cv2.cvtColor(img, cv2.COLOR_BGR2RGB)
+    pil_im = Image.fromarray(img)
+    contrast = ImageEnhance.Contrast(pil_im)
+    contrast = contrast.enhance(10)
+    img = np.array(contrast)
+
+    img = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
+
+    img = cv2.GaussianBlur(img, (5, 5), 1)
+    mean = np.mean(img[::2] ** 1.22)
+
+    retval, thresh = cv2.threshold(img, mean, 255, cv2.THRESH_BINARY)
+
+
+    # ret, thresh = cv2.threshold(image, 127, 255, cv2.THRESH_BINARY)
 
     return thresh
 
@@ -55,6 +68,21 @@ def findCards(mark):
     machCard = 100000;
     img = cv2.imread("A.png",0)
     marged = cv2.absdiff(mark, img)
+def adjust_gamma(image, gamma=1.0):
+    invGamma = 1.0 / gamma
+    table = np.array([((i / 255.0) ** invGamma) * 255
+                      for i in np.arange(0, 256)]).astype("uint8")
+
+    # apply gamma correction using the lookup table
+    return cv2.LUT(image, table)
+
+def change_contrast(img, level):
+    factor = (259 * (level + 255)) / (255 * (259 - level))
+    def contrast(c):
+        value = 128 + factor * (c - 128)
+        return max(0, min(255, value))
+    return img.point(contrast)
+
     rank_diff = int(np.sum(marged)/255)
     print(rank_diff)
     return "Ace"
