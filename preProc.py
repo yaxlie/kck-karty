@@ -8,7 +8,9 @@ def preprocess_image(image):
     
     gray = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
     blur = cv2.GaussianBlur(gray, (5, 5), 1)
-    mean = np.mean(blur[::2] ** 1.1)
+    mean = np.mean(blur * 2.5)
+    if(mean > 255):
+        mean=255
     retval, thresh = cv2.threshold(blur, mean, 255, cv2.THRESH_BINARY)
 
     return thresh
@@ -34,5 +36,14 @@ def cutCard(image, card):
     M = cv2.getPerspectiveTransform(posBegin,posEnd)
     
     warp = cv2.warpPerspective(card, M, (maxWidth, maxHeight))
-    cv2.imshow("debug",warp)
-    return warp
+    corner = warp[10:84, 10:32] 
+    mark = corner[3:45,:]
+    cv2.imshow("debug",mark)
+    #findCards(mark)
+    return mark
+
+
+
+def findCards(mark):
+    img = cv2.imread("Card_Imgs/Ace.jpg",0)
+    cv2.imshow('imaggge',img)
