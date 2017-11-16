@@ -68,6 +68,10 @@ def findCards(mark):
     machCard = 100000;
     img = cv2.imread("A.png",0)
     marged = cv2.absdiff(mark, img)
+    rank_diff = int(np.sum(marged)/255)
+    print(rank_diff)
+    return "Ace"
+
 def adjust_gamma(image, gamma=1.0):
     invGamma = 1.0 / gamma
     table = np.array([((i / 255.0) ** invGamma) * 255
@@ -83,6 +87,14 @@ def change_contrast(img, level):
         return max(0, min(255, value))
     return img.point(contrast)
 
-    rank_diff = int(np.sum(marged)/255)
-    print(rank_diff)
-    return "Ace"
+def oldThresh(image)
+    """Returns a grayed, blurred, and adaptively thresholded camera image."""
+    
+    gray = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
+    blur = cv2.GaussianBlur(gray, (5, 5), 1)
+    mean = np.mean(blur )
+    if(mean > 255):
+        mean=255
+    retval, thresh = cv2.threshold(blur, mean, 255, cv2.THRESH_BINARY)
+
+    return thresh
