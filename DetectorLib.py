@@ -10,7 +10,7 @@ class CardsDetector:
         pass
 
     def detect(self, c):
-        if len(c) > 100:
+        if len(c) > 40:
             peri = cv2.arcLength(c, True)
             approx = cv2.approxPolyDP(c, 0.12 * peri, True)
 

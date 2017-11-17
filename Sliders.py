@@ -31,7 +31,7 @@ class Sliders:
 
         cv2.setTrackbarPos('gamma', 'sliders', 170)
         cv2.setTrackbarPos('contrast', 'sliders', 100)
-        cv2.setTrackbarPos('mean', 'sliders', 170)
+        cv2.setTrackbarPos('mean', 'sliders', 200)
 
         cv2.moveWindow("sliders", 1000, 0)
 
