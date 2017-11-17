@@ -3,6 +3,7 @@ import time
 import imutils
 import preProc
 import DetectorLib
+import Sliders
 
 cap = cv2.VideoCapture(0)
 
@@ -14,23 +15,24 @@ fourcc = cv2.VideoWriter_fourcc(*'XVID')
 videostream = cv2.VideoWriter('output.avi', fourcc, 20.0, (IM_WIDTH, IM_HEIGHT))
 time.sleep(1)
 
+sliders = Sliders.Sliders()
+
 cam_quit = 0
 
 while cam_quit == 0:
 
     ret, frame = cap.read()
 
-    thresh = preProc.preprocess_image(frame)
+    thresh = preProc.preprocess_image(frame, sliders.gamma, sliders.contrast, sliders.mean, True)
 
     cardsDetectod = DetectorLib.CardsDetector(frame, thresh)
 
-    cards = cardsDetectod.detectCards()
-    cv2.imshow("thresh", thresh)
+    cards = cardsDetectod.detectCards(True)
 
         # tutaj kopiuję wycinek z oryginalnego obrazu (wnętrze wykrytego konturu)
     for card in cards:
          #cv2.imshow("karta", card)
-        preProc.cutCard(frame, card)
+        preProc.cutCard(frame, card, sliders.gamma, sliders.contrast, sliders.mean)
 
     key = cv2.waitKey(1) & 0xFF
     if key == ord("q"):

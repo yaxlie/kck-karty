@@ -5,30 +5,39 @@ import time
 from PIL import ImageEnhance, Image
 
 
-def preprocess_image(image):
+def preprocess_image(image, g, c, m, debug=False):
     """Returns a grayed, blurred, and adaptively thresholded camera image."""
 
-    img = adjust_gamma(image, 0.8)
+    img = adjust_gamma(image, g)
 
     img = cv2.cvtColor(img, cv2.COLOR_BGR2RGB)
     pil_im = Image.fromarray(img)
     contrast = ImageEnhance.Contrast(pil_im)
-    contrast = contrast.enhance(10)
+    contrast = contrast.enhance(c)
     img = np.array(contrast)
 
     img = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
 
     img = cv2.GaussianBlur(img, (5, 5), 1)
-    mean = np.mean(img[::2] ** 1.22)
-
-    retval, thresh = cv2.threshold(img, mean, 255, cv2.THRESH_BINARY)
+    #mean = np.mean(img[::2] ** m)
 
 
-    # ret, thresh = cv2.threshold(image, 127, 255, cv2.THRESH_BINARY)
+    retval, thresh = cv2.threshold(img, m, 255, cv2.THRESH_BINARY)
+
+    if debug:
+        cv2.namedWindow('Grey', cv2.WINDOW_NORMAL)
+        cv2.imshow("Grey", img)
+        cv2.resizeWindow('Grey', 200, 200)
+        cv2.moveWindow("Grey", 800, 0)
+
+        cv2.namedWindow('Thresh', cv2.WINDOW_NORMAL)
+        cv2.imshow("Thresh", thresh)
+        cv2.resizeWindow('Thresh', 200, 200)
+        cv2.moveWindow("Thresh", 800, 200)
 
     return thresh
 
-def cutCard(image, card):
+def cutCard(image, card,g, c, m):
     
     posBegin = np.zeros((4,2), dtype = "float32")
     
@@ -57,7 +66,7 @@ def cutCard(image, card):
     M = cv2.getPerspectiveTransform(posBegin,posEnd)
     mark = cv2.warpPerspective(mark, M, (75, 125))
     mark = mark[0:125,0:75]
-    mark = preprocess_image(mark);
+    mark = preprocess_image(mark,g, c, m)
     cv2.imshow("debug",mark)
     return findCards(mark)
     
