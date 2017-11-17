@@ -13,13 +13,13 @@ def preprocess_image(image):
     img = cv2.cvtColor(img, cv2.COLOR_BGR2RGB)
     pil_im = Image.fromarray(img)
     contrast = ImageEnhance.Contrast(pil_im)
-    contrast = contrast.enhance(10)
+    contrast = contrast.enhance(1)
     img = np.array(contrast)
 
     img = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
 
     img = cv2.GaussianBlur(img, (5, 5), 1)
-    mean = np.mean(img[::2] ** 1.22)
+    mean = np.mean(img[::2] ** 1)
 
     retval, thresh = cv2.threshold(img, mean, 255, cv2.THRESH_BINARY)
 
@@ -31,6 +31,7 @@ def preprocess_image(image):
 def cutCard(image, card):
     
     posBegin = np.zeros((4,2), dtype = "float32")
+
     
     h = card.shape[0] -1
     w = card.shape[1] -1
@@ -87,7 +88,7 @@ def change_contrast(img, level):
         return max(0, min(255, value))
     return img.point(contrast)
 
-def oldThresh(image)
+def oldThresh(image):
     """Returns a grayed, blurred, and adaptively thresholded camera image."""
     
     gray = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
