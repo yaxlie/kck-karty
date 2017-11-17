@@ -22,7 +22,7 @@ class CardsDetector:
         (x, y, w, h) = cv2.boundingRect(contour)
         return image[y:y+h, x:x+w]
 
-    def detectCards(self):
+    def detectCards(self, debug = False):
         ratio = self.image.shape[0] / float(self.image.shape[0])
         # shape detector
         cnts = cv2.findContours(self.thresh.copy(), cv2.RETR_EXTERNAL,
@@ -45,5 +45,9 @@ class CardsDetector:
                             0.5, (255, 255, 255), 2)
                 cards.append(self.getArea(self.imageOrigin, c))
         #wyświetlanie do debugowania
-        cv2.imshow("Image", self.image)
+        if(debug):
+            cv2.namedWindow('Image', cv2.WINDOW_NORMAL)
+            cv2.imshow("Image", self.image)
+            cv2.resizeWindow('Image', 800, 600)
+            cv2.moveWindow("Image", 0, 0)
         return cards
