@@ -87,7 +87,7 @@ def change_contrast(img, level):
         return max(0, min(255, value))
     return img.point(contrast)
 
-def oldThresh(image)
+def oldThresh(image):
     """Returns a grayed, blurred, and adaptively thresholded camera image."""
     
     gray = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
