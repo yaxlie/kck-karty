@@ -1,5 +1,6 @@
 import cv2
 import imutils
+import numpy as np
 
 
 class CardsDetector:
@@ -14,10 +15,7 @@ class CardsDetector:
             peri = cv2.arcLength(c, True)
             approx = cv2.approxPolyDP(c, 0.12 * peri, True)
 
-            if(len(approx) == 4 or len(approx) == 5):
-                return approx
-        else:
-            return None
+            return (len(approx) == 4 or len(approx) == 5)
 
     def getArea(self, image, contour):
         (x, y, w, h) = cv2.boundingRect(contour)
@@ -37,8 +35,14 @@ class CardsDetector:
                 cX = int((M["m10"] / M["m00"]) * ratio)
                 cY = int((M["m01"] / M["m00"]) * ratio)
 
-            approx = self.detect(c)
-            if  approx != None:
+            if  self.detect(c):
+
+                peri = cv2.arcLength(c, True)
+                approx = cv2.approxPolyDP(c, 0.12 * peri, True)
+
+                for a in approx:
+                    print(a, "\n")
+                print("----")
                 c = c.astype("float")
                 c *= ratio
                 c = c.astype("int")
@@ -66,10 +70,10 @@ class CardsDetector:
         #if card horizontal
         if(w > h):
             posBegin = np.float32([[0,h],[0,0],[w,0],[w,h]])
-    
-        
+
+
        posEnd = np.array([[0,0],[200-1,0],[200-1,300-1],[0, 300-1]], np.float32)
        M = cv2.getPerspectiveTransform(posBegin,posEnd)
-        
+
        warp = cv2.warpPerspective(card, M, (200, 300))
        return warp
