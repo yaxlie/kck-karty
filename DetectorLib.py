@@ -14,9 +14,10 @@ class CardsDetector:
             peri = cv2.arcLength(c, True)
             approx = cv2.approxPolyDP(c, 0.12 * peri, True)
 
-            return len(approx) == 4 or len(approx) == 5
+            if(len(approx) == 4 or len(approx) == 5):
+                return approx
         else:
-            return False
+            return None
 
     def getArea(self, image, contour):
         (x, y, w, h) = cv2.boundingRect(contour)
@@ -36,7 +37,8 @@ class CardsDetector:
                 cX = int((M["m10"] / M["m00"]) * ratio)
                 cY = int((M["m01"] / M["m00"]) * ratio)
 
-            if  self.detect(c):
+            approx = self.detect(c)
+            if  approx != None:
                 c = c.astype("float")
                 c *= ratio
                 c = c.astype("int")
@@ -51,3 +53,5 @@ class CardsDetector:
             cv2.resizeWindow('Image', 800, 600)
             cv2.moveWindow("Image", 0, 0)
         return cards
+
+    def rotateCard(self, approx, card):
