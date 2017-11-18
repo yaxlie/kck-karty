@@ -56,19 +56,19 @@ class CardsDetector:
             cv2.moveWindow("Image", 0, 0)
         return cards,contours
 
-    def rotateCard(self, c, card):
+    def rotateCard(self, c, card, debug = False):
         peri = cv2.arcLength(c, True)
         approx = cv2.approxPolyDP(c, 0.12 * peri, True)
 
         posBegin = np.zeros((4,2), dtype = "float32")
-        print(approx)
         h = card.shape[0] -1
         w = card.shape[1] -1
         #if good oriented
        # if(h >= w):
-        posBegin = np.float32([[approx[0][0][0],approx[0][0][1]],[approx[1][0][0]
-                ,approx[1][0][1]],[approx[2][0][0],approx[2][0][1]]
-                                      ,[approx[3][0][0],approx[3][0][1]]])
+        posBegin = np.float32([[approx[0][0][0],approx[0][0][1]]
+                                  ,[approx[1][0][0],approx[1][0][1]]
+                                  ,[approx[3][0][0],approx[3][0][1]]
+                                    ,[approx[2][0][0],approx[2][0][1]]])
 
         #if card horizontal
         #if(w > h):
@@ -77,24 +77,28 @@ class CardsDetector:
         w = pow(pow(approx[0][0][0] - approx[1][0][0],2) + pow(approx[0][0][1] - approx[1][0][1],2),0.5)
         posEnd = np.array([[approx[0][0][0],approx[1][0][1]]
                               ,[approx[0][0][0]+ w,approx[1][0][1]]
-                              ,[approx[0][0][0],approx[2][0][1]]
-                              ,[approx[0][0][0] + w, approx[2][0][1]]], np.float32)
+                              ,[approx[0][0][0]+w,approx[2][0][1]]
+                              ,[approx[0][0][0], approx[2][0][1]]], np.float32)
 
         M = cv2.getPerspectiveTransform(posBegin,posEnd)
 
         warp = cv2.warpPerspective(card, M, (200, 300))
-        return warp
-
-    def getRotatedCards(self, debug = True):
-        cards,contours = self.detectCards(False)
-        roatedCards =[]
-        for i in range(0,len(cards)):
-            roatedCards.append(self.rotateCard(contours[i], cards[i]))
 
         if (debug):
             cv2.namedWindow('Image', cv2.WINDOW_NORMAL)
-            cv2.imshow("Image", self.image)
             cv2.resizeWindow('Image', 800, 600)
+            for a in approx:
+                #print(a[0][0], " ", a[0][1])
+                cv2.putText(self.image, "o", (a[0][0], a[0][1]), cv2.FONT_HERSHEY_SIMPLEX,
+                        0.5, (255, 255, 255), 2)
+            cv2.imshow("Image", self.image)
             cv2.moveWindow("Image", 0, 0)
 
+        return warp
+
+    def getRotatedCards(self):
+        cards,contours = self.detectCards(True)
+        roatedCards =[]
+        for i in range(0,len(cards)):
+            roatedCards.append(self.rotateCard(contours[i], cards[i]))
         return roatedCards
