@@ -55,3 +55,21 @@ class CardsDetector:
         return cards
 
     def rotateCard(self, approx, card):
+        posBegin = np.zeros((4,2), dtype = "float32")
+        print(approx)
+        h = card.shape[0] -1
+        w = card.shape[1] -1
+        #if good oriented
+        if(h >= w):
+            posBegin = np.float32([[approx[0][0],approx[0][1]],[approx[2][0],approx[2][0]],[approx[3][0],approx[3][1],[approx[1][0],approx[1][0]])
+
+        #if card horizontal
+        if(w > h):
+            posBegin = np.float32([[0,h],[0,0],[w,0],[w,h]])
+    
+        
+       posEnd = np.array([[0,0],[200-1,0],[200-1,300-1],[0, 300-1]], np.float32)
+       M = cv2.getPerspectiveTransform(posBegin,posEnd)
+        
+       warp = cv2.warpPerspective(card, M, (200, 300))
+       return warp
