@@ -1,7 +1,7 @@
 import cv2
 import imutils
 import numpy as np
-
+import math
 
 class CardsDetector:
     def __init__(self, image, thresh):
@@ -60,30 +60,10 @@ class CardsDetector:
         peri = cv2.arcLength(c, True)
         approx = cv2.approxPolyDP(c, 0.12 * peri, True)
 
-        posBegin = np.zeros((4,2), dtype = "float32")
-        h = card.shape[0] -1
-        w = card.shape[1] -1
-        #if good oriented
-       # if(h >= w):
-        posBegin = np.float32([[approx[0][0][0],approx[0][0][1]]
-                                  ,[approx[1][0][0],approx[1][0][1]]
-                                  ,[approx[3][0][0],approx[3][0][1]]
-                                    ,[approx[2][0][0],approx[2][0][1]]])
-
-        #if card horizontal
-        #if(w > h):
-        #     posBegin = np.float32([[0,h],[0,0],[w,0],[w,h]])
-
-        w = pow(pow(approx[0][0][0] - approx[1][0][0],2) + pow(approx[0][0][1] - approx[1][0][1],2),0.5)
-        posEnd = np.array([[approx[0][0][0],approx[1][0][1]]
-                              ,[approx[0][0][0]+ w,approx[1][0][1]]
-                              ,[approx[0][0][0]+w,approx[2][0][1]]
-                              ,[approx[0][0][0], approx[2][0][1]]], np.float32)
-
-        M = cv2.getPerspectiveTransform(posBegin,posEnd)
-
-        warp = cv2.warpPerspective(card, M, (200, 300))
-
+        myradians = math.atan2(approx[0][0][1]-approx[1][0][1], approx[0][0][0]-approx[1][0][0])
+        angle = math.degrees(myradians)
+        angle = angle + 90
+        print(angle)
         if (debug):
             cv2.namedWindow('Image', cv2.WINDOW_NORMAL)
             cv2.resizeWindow('Image', 800, 600)
@@ -93,8 +73,7 @@ class CardsDetector:
                         0.5, (255, 255, 255), 2)
             cv2.imshow("Image", self.image)
             cv2.moveWindow("Image", 0, 0)
-
-        return warp
+        return card
 
     def getRotatedCards(self):
         cards,contours = self.detectCards(True)

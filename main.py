@@ -4,6 +4,7 @@ import imutils
 import preProc
 import DetectorLib
 import Sliders
+import math
 
 cap = cv2.VideoCapture(0)
 
@@ -20,7 +21,6 @@ sliders = Sliders.Sliders()
 cam_quit = 0
 
 while cam_quit == 0:
-
     ret, frame = cap.read()
 
     thresh = preProc.preprocess_image(frame, sliders.gamma, sliders.contrast, sliders.mean, True)
