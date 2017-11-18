@@ -60,7 +60,7 @@ def cutCard(image, card,g, c, m):
     warp = cv2.warpPerspective(card, M, (maxWidth, maxHeight))
     corner = warp[10:84, 10:32] 
     mark = corner[0:48,:]
-    print(mark.shape)
+    #print(mark.shape)
     posBegin = np.float32([[0,5],[21,5],[21,45],[0,45]])
     posEnd = np.array([[0,0],[75-1,0],[75-1,125-1],[0, 125-1]], np.float32)
     M = cv2.getPerspectiveTransform(posBegin,posEnd)
@@ -78,7 +78,7 @@ def findCards(mark):
     img = cv2.imread("A.png",0)
     marged = cv2.absdiff(mark, img)
     rank_diff = int(np.sum(marged)/255)
-    print(rank_diff)
+    #print(rank_diff)
     return "Ace"
 
 def adjust_gamma(image, gamma=1.0):

@@ -25,7 +25,7 @@ class Sliders:
 
         cv2.namedWindow('sliders', cv2.WINDOW_AUTOSIZE)
 
-        cv2.createTrackbar('gamma', 'sliders', 0, 500, onGammaChange)
+        cv2.createTrackbar('gamma', 'sliders', 0, 1000, onGammaChange)
         cv2.createTrackbar('contrast', 'sliders', 0, 500, onContrastChange)
         cv2.createTrackbar('mean', 'sliders', 0, 255, onMeanChange)
 
