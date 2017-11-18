@@ -74,17 +74,27 @@ class CardsDetector:
         #if(w > h):
         #     posBegin = np.float32([[0,h],[0,0],[w,0],[w,h]])
 
-
-        posEnd = np.array([[0,0],[200-1,0],[200-1,300-1],[0, 300-1]], np.float32)
+        w = pow(pow(approx[0][0][0] - approx[1][0][0],2) + pow(approx[0][0][1] - approx[1][0][1],2),0.5)
+        posEnd = np.array([[approx[0][0][0],approx[1][0][1]]
+                              ,[approx[0][0][0]+ w,approx[1][0][1]]
+                              ,[approx[0][0][0],approx[2][0][1]]
+                              ,[approx[0][0][0] + w, approx[2][0][1]]], np.float32)
 
         M = cv2.getPerspectiveTransform(posBegin,posEnd)
 
         warp = cv2.warpPerspective(card, M, (200, 300))
         return warp
 
-    def getRotatedCards(self):
-        cards,contours = self.detectCards(True)
+    def getRotatedCards(self, debug = True):
+        cards,contours = self.detectCards(False)
         roatedCards =[]
         for i in range(0,len(cards)):
             roatedCards.append(self.rotateCard(contours[i], cards[i]))
+
+        if (debug):
+            cv2.namedWindow('Image', cv2.WINDOW_NORMAL)
+            cv2.imshow("Image", self.image)
+            cv2.resizeWindow('Image', 800, 600)
+            cv2.moveWindow("Image", 0, 0)
+
         return roatedCards
