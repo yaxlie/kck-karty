@@ -3,6 +3,9 @@ import imutils
 import numpy as np
 import math
 
+import preProc
+
+
 class CardsDetector:
     def __init__(self, image, thresh):
         self.image = image.copy()
@@ -62,22 +65,38 @@ class CardsDetector:
 
         myradians = math.atan2(approx[0][0][1]-approx[1][0][1], approx[0][0][0]-approx[1][0][0])
         angle = math.degrees(myradians)
-        angle = angle + 90
-        print(angle)
+        #print(angle)
+
+        if approx[0][0][1] - approx[1][0][1] > approx[0][0][0] - approx[3][0][0]:
+            card = self.rotateImage(card, angle)
+        elif approx[0][0][1] - approx[1][0][1] < approx[0][0][0] - approx[3][0][0]:
+            card = self.rotateImage(card, angle + 90)
+
         if (debug):
             cv2.namedWindow('Image', cv2.WINDOW_NORMAL)
             cv2.resizeWindow('Image', 800, 600)
+            i = 0
             for a in approx:
+                i+=1
                 #print(a[0][0], " ", a[0][1])
-                cv2.putText(self.image, "o", (a[0][0], a[0][1]), cv2.FONT_HERSHEY_SIMPLEX,
+                cv2.putText(self.image, str(i), (a[0][0], a[0][1]), cv2.FONT_HERSHEY_SIMPLEX,
                         0.5, (255, 255, 255), 2)
-            cv2.imshow("Image", self.image)
-            cv2.moveWindow("Image", 0, 0)
+            cv2.imshow("Image2", self.image)
+            cv2.moveWindow("Image2", 0, 0)
+
         return card
 
-    def getRotatedCards(self):
-        cards,contours = self.detectCards(True)
+    def getRotatedCards(self, debug = True):
+        cards,contours = self.detectCards(debug)
         roatedCards =[]
         for i in range(0,len(cards)):
             roatedCards.append(self.rotateCard(contours[i], cards[i]))
         return roatedCards
+
+    def rotateImage(self, image, angle):
+        center = tuple(np.array(image.shape[0:2]) / 2)
+        rot_mat = cv2.getRotationMatrix2D(center, angle, 1.0)
+        return cv2.warpAffine(image, rot_mat, image.shape[0:2], flags=cv2.INTER_LINEAR)
+
+
+

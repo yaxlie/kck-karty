@@ -29,9 +29,13 @@ while cam_quit == 0:
 
     cards = cardsDetectod.getRotatedCards()
 
+
+
         # tutaj kopiuję wycinek z oryginalnego obrazu (wnętrze wykrytego konturu)
+    i = 0
     for card in cards:
-        cv2.imshow("karta", card)
+        i+=1
+        cv2.imshow(str(i), card)
         preProc.cutCard(frame, card, sliders.gamma, sliders.contrast, sliders.mean)
 
     key = cv2.waitKey(1) & 0xFF
