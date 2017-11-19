@@ -43,32 +43,52 @@ def cutCard(image, card,g, c, m):
     
     h = card.shape[0] -1
     w = card.shape[1] -1
-    
+    licznik = 0
+    pom = []
     maxWidth = 200
     maxHeight = 300
+    card = preprocess_image(card,g, c, m, debug=False)
+    cutX = card[int(w/2-1):int(w/2),:]
+    for item in cutX[0]:
+        licznik = licznik + 1
+        if item == 255:
+            pom.append(licznik)
+    cutX = pom[0]
+    licznik = 0
+    pom = [];
+    cutY = card[:,int(h/2-1):int(h/2)]
+    for item in cutY:
+        licznik = licznik + 1
+        if item == 255:
+            pom.append(licznik)
+    cutY = pom[0]
+    card = card[cutX:,:]
+    card = card[:,cutY:]
+    cv2.imshow("dddd",card)
     #if good oriented
-    if(h >= w):
-        posBegin = np.float32([[0,0],[w,0],[w,h],[0,h]])
+    #if(h >= w):
+    #    posBegin = np.float32([[0,0],[w,0],[w,h],[0,h]])
 
     #if card horizontal
-    if(w > h):
-        posBegin = np.float32([[0,h],[0,0],[w,0],[w,h]])
+    #if(w > h):
+    #    posBegin = np.float32([[0,h],[0,0],[w,0],[w,h]])
     
-    posEnd = np.array([[0,0],[maxWidth-1,0],[maxWidth-1,maxHeight-1],[0, maxHeight-1]], np.float32)
-    M = cv2.getPerspectiveTransform(posBegin,posEnd)
+    #posEnd = np.array([[0,0],[maxWidth-1,0],[maxWidth-1,maxHeight-1],[0, maxHeight-1]], np.float32)
+    #M = cv2.getPerspectiveTransform(posBegin,posEnd)
     
-    warp = cv2.warpPerspective(card, M, (maxWidth, maxHeight))
-    corner = warp[10:84, 10:32] 
-    mark = corner[0:48,:]
+    #warp = cv2.warpPerspective(card, M, (maxWidth, maxHeight))
+    #corner = warp[10:84, 10:32] 
+    #mark = corner[0:48,:]
     #print(mark.shape)
-    posBegin = np.float32([[0,5],[21,5],[21,45],[0,45]])
-    posEnd = np.array([[0,0],[75-1,0],[75-1,125-1],[0, 125-1]], np.float32)
-    M = cv2.getPerspectiveTransform(posBegin,posEnd)
-    mark = cv2.warpPerspective(mark, M, (75, 125))
-    mark = mark[0:125,0:75]
-    mark = preprocess_image(mark,g, c, m)
+    #posBegin = np.float32([[0,5],[21,5],[21,45],[0,45]])
+    #posEnd = np.array([[0,0],[75-1,0],[75-1,125-1],[0, 125-1]], np.float32)
+    #M = cv2.getPerspectiveTransform(posBegin,posEnd)
+    #mark = cv2.warpPerspective(mark, M, (75, 125))
+    #mark = mark[0:125,0:75]
+    #mark = preprocess_image(mark,g, c, m)
     #cv2.imshow("debug",mark)
-    return findCards(mark)
+    cv2.imshow("dd",cutX)
+    return card
     
 
 
