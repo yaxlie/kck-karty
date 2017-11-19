@@ -60,7 +60,7 @@ def cutCard(image, card,g, c, m):
         cardCoppy = cardCoppy[:,int(cutX):];
     licznik = 0
     pom = [];
-    cutY = card[:,int(h/2-1):int(h/2)]
+    cutY = card[:,int(h/4-1):int(h/4)]
     for item in cutY:
         licznik = licznik + 1
         if item == 255:
@@ -71,9 +71,9 @@ def cutCard(image, card,g, c, m):
         cardCoppy = cardCoppy[int(cutY):,:]
 
 
-    corner = cardCoppy[0:24, 3:15] 
+    corner = cardCoppy[5:35, 3:24] 
     mark = corner
-    posBegin = np.float32([[0,0],[11,0],[11,23],[0,23]])
+    posBegin = np.float32([[0,0],[14,0],[14,23],[0,23]])
     posEnd = np.array([[0,0],[75-1,0],[75-1,125-1],[0, 125-1]], np.float32)
     M = cv2.getPerspectiveTransform(posBegin,posEnd)
     mark = cv2.warpPerspective(mark, M, (75, 125))
