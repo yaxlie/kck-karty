@@ -72,11 +72,12 @@ def cutCard(image, card,g, c, m):
 
 
     corner = cardCoppy[0:24, 3:15] 
-    mark = corner[0:48,:]
-    posBegin = np.float32([[0,5],[21,5],[21,45],[0,45]])
+    mark = corner
+    posBegin = np.float32([[0,0],[11,0],[11,23],[0,23]])
     posEnd = np.array([[0,0],[75-1,0],[75-1,125-1],[0, 125-1]], np.float32)
     M = cv2.getPerspectiveTransform(posBegin,posEnd)
     mark = cv2.warpPerspective(mark, M, (75, 125))
+    
     cv2.imshow("dddd",mark)
     #if good oriented
     #if(h >= w):
