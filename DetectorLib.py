@@ -59,7 +59,7 @@ class CardsDetector:
             cv2.moveWindow("Image", 0, 0)
         return cards,contours
 
-    def rotateCard(self, c, card, debug = True):
+    def rotateCard(self, c, card, debug = False):
         peri = cv2.arcLength(c, True)
         approx = cv2.approxPolyDP(c, 0.12 * peri, True)
 
