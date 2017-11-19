@@ -59,7 +59,7 @@ class CardsDetector:
             cv2.moveWindow("Image", 0, 0)
         return cards,contours
 
-    def rotateCard(self, c, card, debug = False):
+    def rotateCard(self, c, card, debug = True):
         peri = cv2.arcLength(c, True)
         approx = cv2.approxPolyDP(c, 0.12 * peri, True)
 
@@ -67,9 +67,11 @@ class CardsDetector:
         angle = math.degrees(myradians)
         #print(angle)
 
-        if approx[0][0][1] - approx[1][0][1] > approx[0][0][0] - approx[3][0][0]:
+        if abs(approx[0][0][1] - approx[1][0][1]) < abs(approx[0][0][0] - approx[1][0][0]):
+            print("True")
             card = self.rotateImage(card, angle)
-        elif approx[0][0][1] - approx[1][0][1] < approx[0][0][0] - approx[3][0][0]:
+        elif abs(approx[0][0][1] - approx[1][0][1]) > abs(approx[0][0][0] - approx[1][0][0]):
+            print("False")
             card = self.rotateImage(card, angle + 90)
 
         if (debug):
