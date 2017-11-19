@@ -38,7 +38,7 @@ def preprocess_image(image, g, c, m, debug=False):
     return thresh
 
 def cutCard(image, card,g, c, m):
-    
+    cardCoppy = card
     posBegin = np.zeros((4,2), dtype = "float32")
     cutX = 0
     cutY = 0
@@ -57,6 +57,7 @@ def cutCard(image, card,g, c, m):
     if len(pom) > 0:
         cutX = pom[0]
         card = card[:,int(cutX):]
+        cardCoppy = cardCoppy[:,int(cutX):];
     licznik = 0
     pom = [];
     cutY = card[:,int(h/2-1):int(h/2)]
@@ -67,7 +68,16 @@ def cutCard(image, card,g, c, m):
     if len(pom) > 0:
         cutY = pom[0]
         card = card[int(cutY):,:]
-    cv2.imshow("dddd",card)
+        cardCoppy = cardCoppy[int(cutY):,:]
+
+
+    corner = cardCoppy[0:24, 3:15] 
+    mark = corner[0:48,:]
+    posBegin = np.float32([[0,5],[21,5],[21,45],[0,45]])
+    posEnd = np.array([[0,0],[75-1,0],[75-1,125-1],[0, 125-1]], np.float32)
+    M = cv2.getPerspectiveTransform(posBegin,posEnd)
+    mark = cv2.warpPerspective(mark, M, (75, 125))
+    cv2.imshow("dddd",mark)
     #if good oriented
     #if(h >= w):
     #    posBegin = np.float32([[0,0],[w,0],[w,h],[0,h]])
