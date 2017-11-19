@@ -68,10 +68,8 @@ class CardsDetector:
         #print(angle)
 
         if abs(approx[0][0][1] - approx[1][0][1]) < abs(approx[0][0][0] - approx[1][0][0]):
-            print("True")
             card = self.rotateImage(card, angle)
         elif abs(approx[0][0][1] - approx[1][0][1]) > abs(approx[0][0][0] - approx[1][0][0]):
-            print("False")
             card = self.rotateImage(card, angle + 90)
 
         if (debug):
