@@ -40,20 +40,23 @@ def preprocess_image(image, g, c, m, debug=False):
 def cutCard(image, card,g, c, m):
     
     posBegin = np.zeros((4,2), dtype = "float32")
-    
+    cutX = 0
+    cutY = 0
     h = card.shape[0] -1
     w = card.shape[1] -1
     licznik = 0
     pom = []
     maxWidth = 200
     maxHeight = 300
-    card = preprocess_image(card,g, c, m, debug=False)
-    cutX = card[int(w/2-1):int(w/2),:]
+    card = preprocess_image(card, g, c, m, debug=False)
+    cutX = card[int(w/4-1):int(w/4),:]
     for item in cutX[0]:
         licznik = licznik + 1
         if item == 255:
             pom.append(licznik)
-    cutX = pom[0]
+    if len(pom) > 0:
+        cutX = pom[0]
+        card = card[:,int(cutX):]
     licznik = 0
     pom = [];
     cutY = card[:,int(h/2-1):int(h/2)]
@@ -61,9 +64,9 @@ def cutCard(image, card,g, c, m):
         licznik = licznik + 1
         if item == 255:
             pom.append(licznik)
-    cutY = pom[0]
-    card = card[cutX:,:]
-    card = card[:,cutY:]
+    if len(pom) > 0:
+        cutY = pom[0]
+        card = card[int(cutY):,:]
     cv2.imshow("dddd",card)
     #if good oriented
     #if(h >= w):
