@@ -103,7 +103,6 @@ def cutCard(image, card,g, c, m):
         for y in range(0, 124):
             if corner[y,x] == 0:
                 finishX = x
-                print(x)
                 find = True
                 break
         if find:
