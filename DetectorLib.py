@@ -47,16 +47,8 @@ class CardsDetector:
                 c *= ratio
                 c = c.astype("int")
                 cv2.drawContours(self.image, [c], -1, (0, 255, 0), 2)
-                cv2.putText(self.image, "Karta", (cX, cY), cv2.FONT_HERSHEY_SIMPLEX,
-                            0.5, (255, 255, 255), 2)
                 cards.append(self.getArea(self.imageOrigin, c))
                 contours.append(c)
-        #wyświetlanie do debugowania
-        if(debug):
-            cv2.namedWindow('Image', cv2.WINDOW_NORMAL)
-            cv2.imshow("Image", self.image)
-            cv2.resizeWindow('Image', 800, 600)
-            cv2.moveWindow("Image", 0, 0)
         return cards,contours
 
     def rotateCard(self, c, card, debug = False):
@@ -91,7 +83,7 @@ class CardsDetector:
         roatedCards =[]
         for i in range(0,len(cards)):
             roatedCards.append(self.rotateCard(contours[i], cards[i]))
-        return roatedCards
+        return roatedCards, contours
 
     def rotateImage(self, image, angle):
         center = tuple(np.array(image.shape[0:2]) / 2)

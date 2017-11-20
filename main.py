@@ -27,16 +27,27 @@ while cam_quit == 0:
 
     cardsDetectod = DetectorLib.CardsDetector(frame, thresh)
 
-    cards = cardsDetectod.getRotatedCards()
+    cards, c = cardsDetectod.getRotatedCards()
 
-
+    cv2.namedWindow('Image', cv2.WINDOW_NORMAL)
 
         # tutaj kopiuję wycinek z oryginalnego obrazu (wnętrze wykrytego konturu)
-    i = 0
+    i = -1
     for card in cards:
         i+=1
-        cv2.imshow(str(i), card)
-        preProc.cutCard(frame, card, sliders.gamma, sliders.contrast, sliders.mean)
+        #cv2.imshow(str(i), card)
+        text = (preProc.cutCard(frame, card, sliders.gamma, sliders.contrast, sliders.mean))
+
+        M = cv2.moments(c[i])
+        cX = int(M["m10"] / M["m00"])
+        cY = int(M["m01"] / M["m00"])
+
+        cv2.putText(cardsDetectod.image, text, (cX, cY), cv2.FONT_HERSHEY_SIMPLEX,
+                    0.5, (0, 0, 0), 2)
+
+    cv2.imshow("Image", cardsDetectod.image)
+    cv2.resizeWindow('Image', 800, 600)
+    cv2.moveWindow("Image", 0, 0)
 
     key = cv2.waitKey(1) & 0xFF
     if key == ord("q"):
