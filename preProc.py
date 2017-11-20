@@ -81,7 +81,7 @@ def cutCard(image, card,g, c, m):
     mark = cv2.warpPerspective(mark, M, (75, 125))
     mark = preprocess_image(mark, g, c, m, debug=False)
 
-    #cv2.imshow("debug",mark)
+    cv2.imshow("debug",mark)
     return findCards(mark)
 
 
