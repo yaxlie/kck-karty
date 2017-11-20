@@ -104,42 +104,63 @@ def cutCard(image, card,g, c, m):
     #mark = preprocess_image(mark,g, c, m)
     cv2.imshow("debug",mark)
     return findCards(mark)
-    
-
 
 
 def findCards(mark):
-    machCard = 10000;
     tablica = []
+    piksele = []
     wynik = []
     dd = []
     licznik = 0
-    tablica.append(cv2.imread("A.png",0))
-    tablica.append(cv2.imread("9.png",0))
-    tablica.append(cv2.imread("10.png",0))
-    tablica.append(cv2.imread("J.png",0))
-    tablica.append(cv2.imread("Q.png",0))
-    tablica.append(cv2.imread("K.png",0))
+
+    # k = cv2.imread("A.png",0)
+    # tablica.append(k)
+    # piksele.append(int(np.sum(k / 255)))
+
+    k = cv2.imread("9.png", 0)
+    tablica.append(k)
+    piksele.append(int(np.sum(k / 255)))
+
+    k = cv2.imread("10.png", 0)
+    tablica.append(k)
+    piksele.append(int(np.sum(k / 255)))
+
+    k = cv2.imread("J.png", 0)
+    tablica.append(k)
+    piksele.append(int(np.sum(k / 255)))
+
+    k = cv2.imread("Q.png", 0)
+    tablica.append(k)
+    piksele.append(int(np.sum(k / 255)))
+
+    k = cv2.imread("K.png", 0)
+    tablica.append(k)
+    piksele.append(int(np.sum(k / 255)))
+
+
     for pos in tablica:
         wynik.append(cv2.absdiff(mark,pos))
-    for wyn in wynik:
-        dd.append(int(np.sum(wyn/255)))
-    dd.append(machCard)
-    wyn = np.argmin(dd)
-    print (wyn)
+
+    for i in range(0, len(wynik)):
+        dd.append(piksele[i] / np.sum(wynik[i]/255))
+        print(piksele[i] / np.sum(wynik[i]/255))
+    print("\n")
+
+    wyn = np.argmax(dd)
+
     if(wyn == 0):
         return "Ace"
-    if(wyn == 1):
+    elif(wyn == 1):
         return "9"
-    if(wyn == 2):
+    elif(wyn == 2):
         return "10"
-    if(wyn == 3):
+    elif(wyn == 3):
         return "J"
-    if(wyn == 4):
+    elif(wyn == 4):
         return "Q"
-    if(wyn == 5):
+    elif(wyn == 5):
         return "K"
-    if(wyn == 6):
+    else:
         return "Unknown"
 
 
