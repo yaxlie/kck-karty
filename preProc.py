@@ -104,8 +104,6 @@ def cutCard(image, card,g, c, m):
     #mark = preprocess_image(mark,g, c, m)
     cv2.imshow("debug",mark)
     return findCards(mark)
-    
-
 
 
 def findCards(mark):
