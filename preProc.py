@@ -38,6 +38,7 @@ def preprocess_image(image, g, c, m, debug=False):
     return thresh
 
 def cutCard(image, card,g, c, m):
+    global x, y
     cardCoppy = card
     posBegin = np.zeros((4,2), dtype = "float32")
     cutX = 0
@@ -92,26 +93,39 @@ def cutCard(image, card,g, c, m):
     mark = preprocess_image(mark, 8, c, 180, debug=False)
 
     corner = cv2.warpPerspective(corner, M, (75, 125))
-    corner = preprocess_image(corner, 8, c, 180, debug=False)
+
+    corner = preprocess_image(corner, g, c, m, debug=False)
+    # corner = preprocess_image(corner, 8, c, 180, debug=False)
 
 
-    for x in range(startX,startX+25):
-        for y in range(startY, startY + 24):
-            if corner[x][y] == 0:
+    for x in range(0,74):
+        find = False
+        for y in range(0, 124):
+            if corner[y,x] == 0:
                 finishX = x
+                print(x)
+                find = True
                 break
+        if find:
+            break
 
-    # for y in range(startY, startY + 24):
-    #     for x in range(startX, startX + 25):
-    #         if corner[x][y] == 0:
-    #             finishY = y
-    #             break
+    for y in range(0, 124):
+        find = False
+        for x in range(0, 74):
+            if corner[y,x] == 0:
+                finishY = y
+                find = True
+                break
+        if find:
+            break
 
-    corner = corner[finishX:finishX + W, finishY:finishY +H]
+    # corner = corner[finishY:finishY + H, finishX:finishX +W]
+    corner = corner[finishY:finishY+H, finishX:finishX+W]
+    corner = cv2.resize(corner, (75, 125))
 
-    cv2.imshow("debug1", mark)
-    cv2.imshow("debug2",corner)
-    return findCards(mark)
+    # cv2.imshow("debug1", mark)
+    # cv2.imshow("debug2",corner)
+    return findCards(corner)
 
 
 def findCards(mark):
