@@ -143,11 +143,11 @@ def findCards(mark):
 
     for i in range(0, len(wynik)):
         dd.append(piksele[i] / np.sum(wynik[i]/255))
-        print(piksele[i] / np.sum(wynik[i]/255))
-    print("\n")
+        #print(piksele[i] / np.sum(wynik[i]/255))
+    #print("\n")
 
     wyn = np.argmax(dd)
-
+    print(wyn)
     if(wyn == 0):
         return "Ace"
     elif(wyn == 1):
