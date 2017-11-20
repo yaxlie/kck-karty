@@ -69,26 +69,18 @@ def cutCard(image, card,g, c, m):
         cutY = pom[0]
         card = card[int(cutY):,:]
         cardCoppy = cardCoppy[int(cutY):,:]
-
-
+    licznik = 0
+    pom = [];
+    
+    #funkcja filtrujaca ruch karty
     corner = cardCoppy[5:30, 0:24] 
     mark = corner
-    posBegin = np.float32([[0,0],[14,0],[14,24],[0,24]])
+    posBegin = np.float32([[0,0],[14,0],[14,20],[0,20]])
     posEnd = np.array([[0,0],[75-1,0],[75-1,125-1],[0, 125-1]], np.float32)
     M = cv2.getPerspectiveTransform(posBegin,posEnd)
     mark = cv2.warpPerspective(mark, M, (75, 125))
     mark = preprocess_image(mark, g, c, m, debug=False)
-    half = int(mark.shape[1]/2)
-    cutY = mark[:,half:half+1]
-    licznik = 0
-    pom = []
-    for item in cutY:
-        licznik = licznik + 1
-        if item == 0:
-            pom.append(licznik)
-    if len(pom) > 0:
-        mark = mark[:,pom[0]:]
-    cv2.imshow("dddd",mark)
+    
     #if good oriented
     #if(h >= w):
     #    posBegin = np.float32([[0,0],[w,0],[w,h],[0,h]])
@@ -110,20 +102,46 @@ def cutCard(image, card,g, c, m):
     #mark = cv2.warpPerspective(mark, M, (75, 125))
     #mark = mark[0:125,0:75]
     #mark = preprocess_image(mark,g, c, m)
-    #cv2.imshow("debug",mark)
-    cv2.imshow("dd",cutX)
-    return card
+    cv2.imshow("debug",mark)
+    return findCards(mark)
     
 
 
 
 def findCards(mark):
-    machCard = 100000;
-    img = cv2.imread("A.png",0)
-    marged = cv2.absdiff(mark, img)
-    rank_diff = int(np.sum(marged)/255)
-    #print(rank_diff)
-    return "Ace"
+    machCard = 10000;
+    tablica = []
+    wynik = []
+    dd = []
+    licznik = 0
+    tablica.append(cv2.imread("A.png",0))
+    tablica.append(cv2.imread("9.png",0))
+    #tablica.append(cv2.imread("10.png",0))
+    #tablica.append(cv2.imread("J.png",0))
+    #tablica.append(cv2.imread("Q.png",0))
+    #tablica.append(cv2.imread("K.png",0))
+    for pos in tablica:
+        wynik.append(cv2.absdiff(mark,pos))
+    for wyn in wynik:
+        dd.append(int(np.sum(wyn/255)))
+    dd.append(machCard)
+    print(dd)
+    wym = np.argmin(dd)
+    if(wym == 0):
+        return "Ace"
+    if(wyn == 1):
+        return "9"
+    if(wyn == 2):
+        return "10"
+    if(wyn == 3):
+        return "J"
+    if(wyn == 4):
+        return "Q"
+    if(wyn == 5):
+        return "K"
+    if(wyn == 6):
+        return "Unknown"
+
 
 def adjust_gamma(image, gamma=1.0):
     invGamma = 1.0 / gamma
