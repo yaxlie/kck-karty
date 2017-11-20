@@ -80,29 +80,8 @@ def cutCard(image, card,g, c, m):
     M = cv2.getPerspectiveTransform(posBegin,posEnd)
     mark = cv2.warpPerspective(mark, M, (75, 125))
     mark = preprocess_image(mark, g, c, m, debug=False)
-    
-    #if good oriented
-    #if(h >= w):
-    #    posBegin = np.float32([[0,0],[w,0],[w,h],[0,h]])
 
-    #if card horizontal
-    #if(w > h):
-    #    posBegin = np.float32([[0,h],[0,0],[w,0],[w,h]])
-    
-    #posEnd = np.array([[0,0],[maxWidth-1,0],[maxWidth-1,maxHeight-1],[0, maxHeight-1]], np.float32)
-    #M = cv2.getPerspectiveTransform(posBegin,posEnd)
-    
-    #warp = cv2.warpPerspective(card, M, (maxWidth, maxHeight))
-    #corner = warp[10:84, 10:32] 
-    #mark = corner[0:48,:]
-    #print(mark.shape)
-    #posBegin = np.float32([[0,5],[21,5],[21,45],[0,45]])
-    #posEnd = np.array([[0,0],[75-1,0],[75-1,125-1],[0, 125-1]], np.float32)
-    #M = cv2.getPerspectiveTransform(posBegin,posEnd)
-    #mark = cv2.warpPerspective(mark, M, (75, 125))
-    #mark = mark[0:125,0:75]
-    #mark = preprocess_image(mark,g, c, m)
-    cv2.imshow("debug",mark)
+    #cv2.imshow("debug",mark)
     return findCards(mark)
 
 
@@ -143,8 +122,6 @@ def findCards(mark):
 
     for i in range(0, len(wynik)):
         dd.append(piksele[i] / np.sum(wynik[i]/255))
-        print(piksele[i] / np.sum(wynik[i]/255))
-    print("\n")
 
     wyn = np.argmax(dd)
 
