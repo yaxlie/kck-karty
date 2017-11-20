@@ -73,15 +73,44 @@ def cutCard(image, card,g, c, m):
     pom = [];
     
     #funkcja filtrujaca ruch karty
-    corner = cardCoppy[5:30, 0:24] 
+    startX = 5
+    startY = 0
+
+    finishX = startX
+    finishY = startY
+
+    corner = cardCoppy[startX:startX+25, startX:startX+24]
+
+    W = 75
+    H = 125
+
     mark = corner
     posBegin = np.float32([[0,0],[14,0],[14,20],[0,20]])
     posEnd = np.array([[0,0],[75-1,0],[75-1,125-1],[0, 125-1]], np.float32)
     M = cv2.getPerspectiveTransform(posBegin,posEnd)
     mark = cv2.warpPerspective(mark, M, (75, 125))
-    mark = preprocess_image(mark, g, c, m, debug=False)
+    mark = preprocess_image(mark, 8, c, 180, debug=False)
 
-    #cv2.imshow("debug",mark)
+    corner = cv2.warpPerspective(corner, M, (75, 125))
+    corner = preprocess_image(corner, 8, c, 180, debug=False)
+
+
+    for x in range(startX,startX+25):
+        for y in range(startY, startY + 24):
+            if corner[x][y] == 0:
+                finishX = x
+                break
+
+    # for y in range(startY, startY + 24):
+    #     for x in range(startX, startX + 25):
+    #         if corner[x][y] == 0:
+    #             finishY = y
+    #             break
+
+    corner = corner[finishX:finishX + W, finishY:finishY +H]
+
+    cv2.imshow("debug1", mark)
+    cv2.imshow("debug2",corner)
     return findCards(mark)
 
 
