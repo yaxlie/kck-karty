@@ -116,10 +116,10 @@ def findCards(mark):
     licznik = 0
     tablica.append(cv2.imread("A.png",0))
     tablica.append(cv2.imread("9.png",0))
-    #tablica.append(cv2.imread("10.png",0))
+    tablica.append(cv2.imread("10.png",0))
     tablica.append(cv2.imread("J.png",0))
-    #tablica.append(cv2.imread("Q.jpg",0))
-    #tablica.append(cv2.imread("K.jpg",0))
+    tablica.append(cv2.imread("Q.png",0))
+    tablica.append(cv2.imread("K.png",0))
     for pos in tablica:
         wynik.append(cv2.absdiff(mark,pos))
     for wyn in wynik:
