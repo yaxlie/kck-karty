@@ -95,8 +95,8 @@ def cutCard(image, card,g, c, m):
 
     corner = cv2.warpPerspective(corner, M, (75, 125))
 
-    # corner = preprocess_image(corner, g, c, m, debug=False)
-    corner = preprocess_image(corner, 4, c, 180, debug=False)
+    corner = preprocess_image(corner, g, c, m, debug=False)
+    #corner = preprocess_image(corner, 4, c, 180, debug=False)
 
 
     for x in range(0,74):
