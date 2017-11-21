@@ -2,7 +2,6 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="3bab84e9-09d4-415b-973c-806484470da3" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/preProc.py" afterPath="$PROJECT_DIR$/preProc.py" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -17,8 +16,8 @@
       <file leaf-file-name="preProc.py" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/preProc.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="284">
-              <caret line="112" column="31" lean-forward="true" selection-start-line="112" selection-start-column="31" selection-end-line="112" selection-end-column="31" />
+            <state relative-caret-position="176">
+              <caret line="96" column="0" lean-forward="true" selection-start-line="96" selection-start-column="0" selection-end-line="96" selection-end-column="0" />
               <folding>
                 <element signature="e#0#18#0" expanded="true" />
               </folding>
@@ -29,11 +28,10 @@
       <file leaf-file-name="main.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/main.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="54">
-              <caret line="3" column="14" lean-forward="false" selection-start-line="3" selection-start-column="7" selection-end-line="3" selection-end-column="14" />
+            <state relative-caret-position="252">
+              <caret line="47" column="4" lean-forward="true" selection-start-line="47" selection-start-column="4" selection-end-line="47" selection-end-column="44" />
               <folding>
-                <marker date="1511219656828" expanded="true" signature="1269:1347" ph="..." />
-                <marker date="1511219656828" expanded="true" signature="1374:1899" ph="..." />
+                <element signature="e#0#10#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -52,8 +50,8 @@
       <file leaf-file-name="DetectorLib.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/DetectorLib.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="220">
-              <caret line="85" column="36" lean-forward="false" selection-start-line="85" selection-start-column="36" selection-end-line="85" selection-end-column="36" />
+            <state relative-caret-position="130">
+              <caret line="71" column="20" lean-forward="true" selection-start-line="71" selection-start-column="20" selection-end-line="71" selection-end-column="20" />
               <folding>
                 <element signature="e#0#10#0" expanded="true" />
               </folding>
@@ -79,6 +77,7 @@
       <find>imshow</find>
       <find>als</find>
       <find>print</find>
+      <find>debu</find>
       <find>cut</find>
     </findStrings>
   </component>
@@ -239,8 +238,7 @@
         <state relative-caret-position="576">
           <caret line="37" column="23" lean-forward="true" selection-start-line="37" selection-start-column="23" selection-end-line="37" selection-end-column="23" />
           <folding>
-            <marker date="1511219656828" expanded="true" signature="1269:1347" ph="..." />
-            <marker date="1511219656828" expanded="true" signature="1374:1899" ph="..." />
+            <element signature="e#0#10#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -288,8 +286,7 @@
         <state relative-caret-position="90">
           <caret line="9" column="15" lean-forward="true" selection-start-line="9" selection-start-column="15" selection-end-line="9" selection-end-column="15" />
           <folding>
-            <marker date="1511219656828" expanded="true" signature="1269:1347" ph="..." />
-            <marker date="1511219656828" expanded="true" signature="1374:1899" ph="..." />
+            <element signature="e#0#10#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -309,8 +306,7 @@
         <state relative-caret-position="288">
           <caret line="20" column="20" lean-forward="false" selection-start-line="20" selection-start-column="17" selection-end-line="20" selection-end-column="20" />
           <folding>
-            <marker date="1511219656828" expanded="true" signature="1269:1347" ph="..." />
-            <marker date="1511219656828" expanded="true" signature="1374:1899" ph="..." />
+            <element signature="e#0#10#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -340,8 +336,7 @@
         <state relative-caret-position="540">
           <caret line="34" column="31" lean-forward="true" selection-start-line="34" selection-start-column="31" selection-end-line="34" selection-end-column="31" />
           <folding>
-            <marker date="1511219656828" expanded="true" signature="1269:1347" ph="..." />
-            <marker date="1511219656828" expanded="true" signature="1374:1899" ph="..." />
+            <element signature="e#0#10#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -361,8 +356,7 @@
         <state relative-caret-position="864">
           <caret line="48" column="50" lean-forward="true" selection-start-line="48" selection-start-column="50" selection-end-line="48" selection-end-column="50" />
           <folding>
-            <marker date="1511219656828" expanded="true" signature="1269:1347" ph="..." />
-            <marker date="1511219656828" expanded="true" signature="1374:1899" ph="..." />
+            <element signature="e#0#10#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -382,8 +376,7 @@
         <state relative-caret-position="0">
           <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding>
-            <marker date="1511219656828" expanded="true" signature="1269:1347" ph="..." />
-            <marker date="1511219656828" expanded="true" signature="1374:1899" ph="..." />
+            <element signature="e#0#10#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -400,8 +393,7 @@
         <state relative-caret-position="112">
           <caret line="42" column="25" lean-forward="false" selection-start-line="42" selection-start-column="25" selection-end-line="42" selection-end-column="25" />
           <folding>
-            <marker date="1511219656828" expanded="true" signature="1269:1347" ph="..." />
-            <marker date="1511219656828" expanded="true" signature="1374:1899" ph="..." />
+            <element signature="e#0#10#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -449,8 +441,7 @@
         <state relative-caret-position="576">
           <caret line="37" column="23" lean-forward="false" selection-start-line="37" selection-start-column="23" selection-end-line="37" selection-end-column="23" />
           <folding>
-            <marker date="1511219656828" expanded="true" signature="1269:1347" ph="..." />
-            <marker date="1511219656828" expanded="true" signature="1374:1899" ph="..." />
+            <element signature="e#0#10#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -488,8 +479,7 @@
         <state relative-caret-position="576">
           <caret line="37" column="23" lean-forward="false" selection-start-line="37" selection-start-column="23" selection-end-line="37" selection-end-column="23" />
           <folding>
-            <marker date="1511219656828" expanded="true" signature="1269:1347" ph="..." />
-            <marker date="1511219656828" expanded="true" signature="1374:1899" ph="..." />
+            <element signature="e#0#10#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -527,8 +517,7 @@
         <state relative-caret-position="576">
           <caret line="37" column="23" lean-forward="true" selection-start-line="37" selection-start-column="23" selection-end-line="37" selection-end-column="23" />
           <folding>
-            <marker date="1511219656828" expanded="true" signature="1269:1347" ph="..." />
-            <marker date="1511219656828" expanded="true" signature="1374:1899" ph="..." />
+            <element signature="e#0#10#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -576,8 +565,7 @@
         <state relative-caret-position="90">
           <caret line="9" column="15" lean-forward="true" selection-start-line="9" selection-start-column="15" selection-end-line="9" selection-end-column="15" />
           <folding>
-            <marker date="1511219656828" expanded="true" signature="1269:1347" ph="..." />
-            <marker date="1511219656828" expanded="true" signature="1374:1899" ph="..." />
+            <element signature="e#0#10#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -597,8 +585,7 @@
         <state relative-caret-position="288">
           <caret line="20" column="20" lean-forward="false" selection-start-line="20" selection-start-column="17" selection-end-line="20" selection-end-column="20" />
           <folding>
-            <marker date="1511219656828" expanded="true" signature="1269:1347" ph="..." />
-            <marker date="1511219656828" expanded="true" signature="1374:1899" ph="..." />
+            <element signature="e#0#10#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -628,8 +615,7 @@
         <state relative-caret-position="540">
           <caret line="34" column="31" lean-forward="true" selection-start-line="34" selection-start-column="31" selection-end-line="34" selection-end-column="31" />
           <folding>
-            <marker date="1511219656828" expanded="true" signature="1269:1347" ph="..." />
-            <marker date="1511219656828" expanded="true" signature="1374:1899" ph="..." />
+            <element signature="e#0#10#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -649,8 +635,7 @@
         <state relative-caret-position="864">
           <caret line="48" column="50" lean-forward="true" selection-start-line="48" selection-start-column="50" selection-end-line="48" selection-end-column="50" />
           <folding>
-            <marker date="1511219656828" expanded="true" signature="1269:1347" ph="..." />
-            <marker date="1511219656828" expanded="true" signature="1374:1899" ph="..." />
+            <element signature="e#0#10#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -670,8 +655,7 @@
         <state relative-caret-position="0">
           <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding>
-            <marker date="1511219656828" expanded="true" signature="1269:1347" ph="..." />
-            <marker date="1511219656828" expanded="true" signature="1374:1899" ph="..." />
+            <element signature="e#0#10#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -693,8 +677,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/DetectorLib.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="220">
-          <caret line="85" column="36" lean-forward="false" selection-start-line="85" selection-start-column="36" selection-end-line="85" selection-end-column="36" />
+        <state relative-caret-position="130">
+          <caret line="71" column="20" lean-forward="true" selection-start-line="71" selection-start-column="20" selection-end-line="71" selection-end-column="20" />
           <folding>
             <element signature="e#0#10#0" expanded="true" />
           </folding>
@@ -703,19 +687,18 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/main.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="54">
-          <caret line="3" column="14" lean-forward="false" selection-start-line="3" selection-start-column="7" selection-end-line="3" selection-end-column="14" />
+        <state relative-caret-position="252">
+          <caret line="47" column="4" lean-forward="true" selection-start-line="47" selection-start-column="4" selection-end-line="47" selection-end-column="44" />
           <folding>
-            <marker date="1511219656828" expanded="true" signature="1269:1347" ph="..." />
-            <marker date="1511219656828" expanded="true" signature="1374:1899" ph="..." />
+            <element signature="e#0#10#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/preProc.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="284">
-          <caret line="112" column="31" lean-forward="true" selection-start-line="112" selection-start-column="31" selection-end-line="112" selection-end-column="31" />
+        <state relative-caret-position="176">
+          <caret line="96" column="0" lean-forward="true" selection-start-line="96" selection-start-column="0" selection-end-line="96" selection-end-column="0" />
           <folding>
             <element signature="e#0#18#0" expanded="true" />
           </folding>

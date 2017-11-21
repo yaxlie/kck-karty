@@ -3,6 +3,7 @@ import cv2
 import time
 
 from PIL import ImageEnhance, Image
+from skimage.measure import compare_ssim
 
 
 def preprocess_image(image, g, c, m, debug=False):
@@ -38,6 +39,7 @@ def preprocess_image(image, g, c, m, debug=False):
     return thresh
 
 def cutCard(image, card,g, c, m):
+    global x, y
     cardCoppy = card
     posBegin = np.zeros((4,2), dtype = "float32")
     cutX = 0
@@ -92,26 +94,38 @@ def cutCard(image, card,g, c, m):
     mark = preprocess_image(mark, 8, c, 180, debug=False)
 
     corner = cv2.warpPerspective(corner, M, (75, 125))
-    corner = preprocess_image(corner, 8, c, 180, debug=False)
+
+    corner = preprocess_image(corner, g, c, m, debug=False)
+    #corner = preprocess_image(corner, 4, c, 180, debug=False)
 
 
-    for x in range(startX,startX+25):
-        for y in range(startY, startY + 24):
-            if corner[x][y] == 0:
+    for x in range(0,74):
+        find = False
+        for y in range(0, 124):
+            if corner[y,x] == 0:
                 finishX = x
+                find = True
                 break
+        if find:
+            break
 
-    # for y in range(startY, startY + 24):
-    #     for x in range(startX, startX + 25):
-    #         if corner[x][y] == 0:
-    #             finishY = y
-    #             break
+    for y in range(0, 124):
+        find = False
+        for x in range(0, 74):
+            if corner[y,x] == 0:
+                finishY = y
+                find = True
+                break
+        if find:
+            break
 
-    corner = corner[finishX:finishX + W, finishY:finishY +H]
+    # corner = corner[finishY:finishY + H, finishX:finishX +W]
+    corner = corner[finishY:finishY+H, finishX:finishX+W]
+    corner = cv2.resize(corner, (75, 125))
 
-    cv2.imshow("debug1", mark)
+    # cv2.imshow("debug1", mark)
     cv2.imshow("debug2",corner)
-    return findCards(mark)
+    return findCards(corner)
 
 
 def findCards(mark):
@@ -120,46 +134,53 @@ def findCards(mark):
     wynik = []
     dd = []
     licznik = 0
-
-    # k = cv2.imread("A.png",0)
-    # tablica.append(k)
-    # piksele.append(int(np.sum(k / 255)))
-
-    k = cv2.imread("9.png", 0)
-    tablica.append(k)
+    k = 255 - cv2.imread("Ace.png",0)
+    tablica.append(255 - k)
     piksele.append(int(np.sum(k / 255)))
 
-    k = cv2.imread("10.png", 0)
-    tablica.append(k)
+    k = 255 -  cv2.imread("9.png", 0)
+    tablica.append(255 - k)
     piksele.append(int(np.sum(k / 255)))
 
-    k = cv2.imread("J.png", 0)
-    tablica.append(k)
+    k = 255 -  cv2.imread("10.png", 0)
+    tablica.append(255 - k)
     piksele.append(int(np.sum(k / 255)))
 
-    k = cv2.imread("Q.png", 0)
-    tablica.append(k)
+    k = 255 -  cv2.imread("J.png", 0)
+    tablica.append(255 - k)
     piksele.append(int(np.sum(k / 255)))
 
-    k = cv2.imread("K.png", 0)
-    tablica.append(k)
+    k = 255 -  cv2.imread("Q.png", 0)
+    tablica.append(255 - k)
+    piksele.append(int(np.sum(k / 255)))
+
+    k = 255 -  cv2.imread("K.png", 0)
+    tablica.append(255 - k)
     piksele.append(int(np.sum(k / 255)))
 
 
     for pos in tablica:
-        wynik.append(cv2.absdiff(mark,pos))
+        # (score, diff) = compare_ssim(mark, pos, full=True)
+        # diff = (diff * 255).astype("uint8")
+        # print("SSIM: {}".format(score), " ")
+        t2 = 255-mark
+        wynik.append(pos+t2)
+        # cv2.imshow("Twynik", pos)
 
+    print("\n")
     for i in range(0, len(wynik)):
-        dd.append(piksele[i] / np.sum(wynik[i]/255))
+        dd.append(np.sum(wynik[i]/255)/piksele[i])
+        cv2.imshow("wynik", wynik[i])
 
-    wyn = np.argmax(dd)
+    print(dd, "\n")
+    wyn = np.argmin(dd)
 
     if(wyn == 0):
         return "Ace"
     elif(wyn == 1):
-        return "9"
-    elif(wyn == 2):
         return "10"
+    elif(wyn == 2):
+        return "9"
     elif(wyn == 3):
         return "J"
     elif(wyn == 4):
