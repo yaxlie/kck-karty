@@ -134,7 +134,7 @@ def findCards(mark):
     wynik = []
     dd = []
     licznik = 0
-    k = 255 - cv2.imread("Ace.png",0)
+    k = 255 - cv2.imread("A.png",0)
     tablica.append(255 - k)
     piksele.append(int(np.sum(k / 255)))
 
