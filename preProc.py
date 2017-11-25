@@ -168,12 +168,14 @@ def findCards(mark):
     tablica.append(k)
     piksele.append(int(np.sum(k / 255)))
 
-    for pos in range(0,len(tablica)):
-        wynik.append((255 - tablica[pos]) - piksele[pos])
+    for pos in tablica:
+        wynik.append(cv2.absdiff(mark,pos))
+    cv2.imshow("roznice", wynik[0])
+    for i in range(0, len(wynik)):
+        dd.append(np.sum(wynik[i]/255))
 
-    cv2.imshow("roznica", wynik[0])
-
-    wyn = 11
+    print(dd, "\n")
+    wyn = np.argmin(dd)
 
     if(wyn == 0):
         return "Ace"
