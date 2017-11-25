@@ -43,7 +43,7 @@ while cam_quit == 0:
         cY = int(M["m01"] / M["m00"])
 
         cv2.putText(cardsDetectod.image, text, (cX, cY), cv2.FONT_HERSHEY_SIMPLEX,
-                    0.5, (0, 0, 0), 2)
+                    0.5, (0, 0, 255), 2)
 
     cv2.imshow("Image", cardsDetectod.image)
     cv2.resizeWindow('Image', 800, 600)
