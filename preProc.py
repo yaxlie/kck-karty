@@ -41,6 +41,7 @@ def preprocess_image(image, g, c, m, debug=False):
 def cutCard(image, card,g, c, m):
     global x, y
     cardCoppy = card
+    newCoppy = card
     posBegin = np.zeros((4,2), dtype = "float32")
     cutX = 0
     cutY = 0
@@ -81,13 +82,19 @@ def cutCard(image, card,g, c, m):
     finishX = startX
     finishY = startY
 
-    corner = cardCoppy[startX:startX+25, startX:startX+24]
+    corner = cardCoppy[startX:, startX:]
 
+
+    
+    h = corner.shape[0] -1
+    w = corner.shape[1] -1
+    
     W = 75
     H = 125
 
     mark = corner
-    posBegin = np.float32([[0,0],[14,0],[14,20],[0,20]])
+    cv2.imshow("ttest",corner)
+    posBegin = np.float32([[0,0],[int(w*0.22),0],[int(w*0.22),int(h*0.22)],[0,int(h*0.22)]])
     posEnd = np.array([[0,0],[75-1,0],[75-1,125-1],[0, 125-1]], np.float32)
     M = cv2.getPerspectiveTransform(posBegin,posEnd)
     mark = cv2.warpPerspective(mark, M, (75, 125))
@@ -122,7 +129,6 @@ def cutCard(image, card,g, c, m):
     # corner = corner[finishY:finishY + H, finishX:finishX +W]
     corner = corner[finishY:finishY+H, finishX:finishX+W]
     corner = cv2.resize(corner, (75, 125))
-
     # cv2.imshow("debug1", mark)
     cv2.imshow("debug2",corner)
     return findCards(corner)
