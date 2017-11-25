@@ -156,33 +156,24 @@ def findCards(mark):
     tablica.append(k)
     piksele.append(int(np.sum(k / 255)))
 
-    #k = cv2.imread("J.png", 0)
-    #tablica.append(k)
-    #piksele.append(int(np.sum(k / 255)))
+    k = cv2.imread("J.png", 0)
+    tablica.append(k)
+    piksele.append(int(np.sum(k / 255)))
 
-    #k = cv2.imread("Q.png", 0)
-    #tablica.append(k)
-    #piksele.append(int(np.sum(k / 255)))
+    k = cv2.imread("Q.png", 0)
+    tablica.append(k)
+    piksele.append(int(np.sum(k / 255)))
 
-    #k = cv2.imread("K.png", 0)
-    #tablica.append(k)
-    #piksele.append(int(np.sum(k / 255)))
+    k = cv2.imread("K.png", 0)
+    tablica.append(k)
+    piksele.append(int(np.sum(k / 255)))
 
-    mu = []
+    for pos in range(0,len(tablica)):
+        wynik.append((255 - tablica[pos]) - piksele[pos])
 
-    mu.append(huMoment(mark))
+    cv2.imshow("roznica", wynik[0])
 
-    for i in range(0, 6):
-        n = ['A.png', '9.png', '10.png', 'J.png', 'Q.png', 'K.png']
-        mu.append(huMoment(cv2.imread(n[i],0)))
-
-
-    for pos in range(1,len(mu)):
-        wynik.append(np.sum(abs(mu[0] - mu[pos])))
-
-    print(wynik, "\n")
-
-    wyn = np.argmin(wynik)
+    wyn = 11
 
     if(wyn == 0):
         return "Ace"
