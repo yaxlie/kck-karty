@@ -75,13 +75,13 @@ def cutCard(image, card,g, c, m):
     pom = [];
     
     #funkcja filtrujaca ruch karty
-    startX = 5
-    startY = 0
+    startX = 0
+    startY = 3
 
     finishX = startX
     finishY = startY
 
-    corner = cardCoppy[startX:startX+25, startX:startX+24]
+    corner = cardCoppy[startY:startY+25, startX:startX+24]
 
     W = 75
     H = 125
@@ -95,8 +95,8 @@ def cutCard(image, card,g, c, m):
 
     corner = cv2.warpPerspective(corner, M, (75, 125))
 
-    corner = preprocess_image(corner, g, c, m, debug=False)
-    # corner = preprocess_image(corner, 8, c, 180, debug=False)
+    # corner = preprocess_image(corner, g, c, m, debug=False)
+    corner = preprocess_image(corner, 4, c, 180, debug=False)
 
 
     for x in range(0,74):
