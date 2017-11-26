@@ -96,7 +96,7 @@ def cutCard(image, card,g, c, m):
     corner = cv2.warpPerspective(corner, M, (75, 125))
 
     # corner = preprocess_image(corner, g, c, m, debug=False)
-    corner = preprocess_image(corner, 4, c, 180, debug=False)
+    corner = preprocess_image(corner, 3, c, 180, debug=False)
 
 
     for x in range(0,74):
@@ -134,6 +134,7 @@ def cutCard(image, card,g, c, m):
     # cv2.imshow("ss",corner2)
     # cv2.imshow("debug1", mark)
     cv2.imshow("mark",corner)
+    cv2.moveWindow("mark", 75, 0)
     return findCards(corner)
 
 
@@ -170,11 +171,13 @@ def findCards(mark):
 
     for pos in tablica:
         wynik.append(cv2.absdiff(mark,pos))
-    cv2.imshow("roznice", wynik[0])
+    cv2.imshow("roznice", wynik[5])
+    cv2.moveWindow("roznice", 0, 0)
     for i in range(0, len(wynik)):
         dd.append(np.sum(wynik[i]/255))
 
     print(dd, "\n")
+    dd.append(2500)
     wyn = np.argmin(dd)
 
     if(wyn == 0):
