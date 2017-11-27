@@ -148,24 +148,96 @@ def findCards(mark):
     k = cv2.imread("A.png",0)
     tablica.append(k)
     piksele.append(int(np.sum(k / 255)))
-
+    k = cv2.imread("ABD.png",0)
+    tablica.append(k)
+    piksele.append(int(np.sum(k / 255)))
+    k = cv2.imread("AD.png",0)
+    tablica.append(k)
+    piksele.append(int(np.sum(k / 255)))
+    k = cv2.imread("AB.png",0)
+    tablica.append(k)
+    piksele.append(int(np.sum(k / 255)))
+    k = cv2.imread("ABB.png",0)
+    tablica.append(k)
+    piksele.append(int(np.sum(k / 255)))
+    
     k = cv2.imread("9.png", 0)
+    tablica.append(k)
+    piksele.append(int(np.sum(k / 255)))
+    k = cv2.imread("9BD.png", 0)
+    tablica.append(k)
+    piksele.append(int(np.sum(k / 255)))
+    k = cv2.imread("9D.png", 0)
+    tablica.append(k)
+    piksele.append(int(np.sum(k / 255)))
+    k = cv2.imread("9B.png", 0)
+    tablica.append(k)
+    piksele.append(int(np.sum(k / 255)))
+    k = cv2.imread("9BB.png", 0)
     tablica.append(k)
     piksele.append(int(np.sum(k / 255)))
 
     k = cv2.imread("10.png", 0)
     tablica.append(k)
     piksele.append(int(np.sum(k / 255)))
+    k = cv2.imread("10BD.png", 0)
+    tablica.append(k)
+    piksele.append(int(np.sum(k / 255)))
+    k = cv2.imread("10D.png", 0)
+    tablica.append(k)
+    piksele.append(int(np.sum(k / 255)))
+    k = cv2.imread("10B.png", 0)
+    tablica.append(k)
+    piksele.append(int(np.sum(k / 255)))
+    k = cv2.imread("10BB.png", 0)
+    tablica.append(k)
+    piksele.append(int(np.sum(k / 255)))
 
     k = cv2.imread("J.png", 0)
+    tablica.append(k)
+    piksele.append(int(np.sum(k / 255)))
+    k = cv2.imread("JBD.png", 0)
+    tablica.append(k)
+    piksele.append(int(np.sum(k / 255)))
+    k = cv2.imread("JD.png", 0)
+    tablica.append(k)
+    piksele.append(int(np.sum(k / 255)))
+    k = cv2.imread("JB.png", 0)
+    tablica.append(k)
+    piksele.append(int(np.sum(k / 255)))
+    k = cv2.imread("JBB.png", 0)
     tablica.append(k)
     piksele.append(int(np.sum(k / 255)))
 
     k = cv2.imread("Q.png", 0)
     tablica.append(k)
     piksele.append(int(np.sum(k / 255)))
+    k = cv2.imread("QBD.png", 0)
+    tablica.append(k)
+    piksele.append(int(np.sum(k / 255)))
+    k = cv2.imread("QD.png", 0)
+    tablica.append(k)
+    piksele.append(int(np.sum(k / 255)))
+    k = cv2.imread("QB.png", 0)
+    tablica.append(k)
+    piksele.append(int(np.sum(k / 255)))
+    k = cv2.imread("QBB.png", 0)
+    tablica.append(k)
+    piksele.append(int(np.sum(k / 255)))
 
     k = cv2.imread("K.png", 0)
+    tablica.append(k)
+    piksele.append(int(np.sum(k / 255)))
+    k = cv2.imread("KBD.png", 0)
+    tablica.append(k)
+    piksele.append(int(np.sum(k / 255)))
+    k = cv2.imread("KD.png", 0)
+    tablica.append(k)
+    piksele.append(int(np.sum(k / 255)))
+    k = cv2.imread("KB.png", 0)
+    tablica.append(k)
+    piksele.append(int(np.sum(k / 255)))
+    k = cv2.imread("KBB.png", 0)
     tablica.append(k)
     piksele.append(int(np.sum(k / 255)))
 
@@ -183,15 +255,69 @@ def findCards(mark):
     if(wyn == 0):
         return "Ace"
     elif(wyn == 1):
-        return "9"
+        return "Ace"
     elif(wyn == 2):
-        return "10"
+        return "Ace"
     elif(wyn == 3):
-        return "J"
+        return "Ace"
     elif(wyn == 4):
-        return "Q"
+        return "Ace"
+    
     elif(wyn == 5):
+        return "9"
+    elif(wyn == 6):
+        return "9"
+    elif(wyn == 7):
+        return "9"
+    elif(wyn == 8):
+        return "9"
+    elif(wyn == 9):
+        return "9"
+    
+    elif(wyn == 10):
+        return "10"
+    elif(wyn == 11):
+        return "10"
+    elif(wyn == 12):
+        return "10"
+    elif(wyn == 13):
+        return "10"
+    elif(wyn == 14):
+        return "10"
+    
+    elif(wyn == 15):
+        return "J"
+    elif(wyn == 16):
+        return "J"
+    elif(wyn == 17):
+        return "J"
+    elif(wyn == 18):
+        return "J"
+    elif(wyn == 19):
+        return "J"
+    
+    elif(wyn == 20):
+        return "Q"
+    elif(wyn == 21):
+        return "Q"
+    elif(wyn == 22):
+        return "Q"
+    elif(wyn == 23):
+        return "Q"
+    elif(wyn == 24):
+        return "Q"
+    
+    elif(wyn == 25):
         return "K"
+    elif(wyn == 26):
+        return "K"
+    elif(wyn == 27):
+        return "K"
+    elif(wyn == 28):
+        return "K"
+    elif(wyn == 29):
+        return "K"
+    
     else:
         return "Unknown"
 
