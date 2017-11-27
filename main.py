@@ -17,6 +17,7 @@ videostream = cv2.VideoWriter('output.avi', fourcc, 20.0, (IM_WIDTH, IM_HEIGHT))
 time.sleep(1)
 
 sliders = Sliders.Sliders()
+preProc = preProc.PreProc()
 
 cam_quit = 0
 
