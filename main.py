@@ -37,6 +37,7 @@ while cam_quit == 0:
         i+=1
         #cv2.imshow(str(i), card)
         text = (preProc.cutCard(frame, card, sliders.gamma, sliders.contrast, sliders.mean))
+        textMark = (preProc.cutMark(frame, card, sliders.gamma, sliders.contrast, sliders.mean))
 
         M = cv2.moments(c[i])
         cX = int(M["m10"] / M["m00"])
@@ -44,6 +45,8 @@ while cam_quit == 0:
 
         cv2.putText(cardsDetectod.image, text, (cX, cY), cv2.FONT_HERSHEY_SIMPLEX,
                     0.5, (0, 0, 255), 2)
+        cv2.putText(cardsDetectod.image, textMark, (cX, cY + 15), cv2.FONT_HERSHEY_SIMPLEX,
+                    0.4, (0, 255, 255), 2)
 
     cv2.imshow("Image", cardsDetectod.image)
     cv2.resizeWindow('Image', 800, 600)

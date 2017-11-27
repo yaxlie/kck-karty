@@ -357,3 +357,129 @@ def huMoment(img):
     mu = moments_central(h, cr, cc)
     return mu
 
+
+def findMarks(mark):
+    tablica = []
+    piksele = []
+    wynik = []
+    dd = []
+    licznik = 0
+
+    k = cv2.imread("A.png", 0)
+    tablica.append(k)
+    piksele.append(int(np.sum(k / 255)))
+    k = cv2.imread("ABD.png", 0)
+    tablica.append(k)
+    piksele.append(int(np.sum(k / 255)))
+    k = cv2.imread("AD.png", 0)
+    tablica.append(k)
+    piksele.append(int(np.sum(k / 255)))
+    k = cv2.imread("AB.png", 0)
+    tablica.append(k)
+    piksele.append(int(np.sum(k / 255)))
+
+
+    for pos in tablica:
+        wynik.append(cv2.absdiff(mark, pos))
+    cv2.imshow("rZnak", wynik[3])
+    cv2.moveWindow("rZnak", 0, 300)
+    for i in range(0, len(wynik)):
+        dd.append(np.sum(wynik[i] / 255))
+
+    print(dd, "\n")
+    dd.append(2500)
+    wyn = np.argmin(dd)
+
+    if (wyn == 0):
+        return "Kier"
+    elif (wyn == 1):
+        return "Karo"
+    elif (wyn == 2):
+        return "Trefl"
+    elif (wyn == 3):
+        return "Pik"
+
+    else:
+        return "Znaczek"
+
+def cutMark(image, card,g, c, m):
+    global x, y
+    cardCoppy = card
+    h = card.shape[0] - 1
+    w = card.shape[1] - 1
+    licznik = 0
+    pom = []
+    card = preprocess_image(card, g, c, m, debug=False)
+    cutX = card[int(w / 4 - 1):int(w / 4), :]
+    for item in cutX[0]:
+        licznik = licznik + 1
+        if item == 255:
+            pom.append(licznik)
+    if len(pom) > 0:
+        cutX = pom[0]
+        card = card[:, int(cutX):]
+        cardCoppy = cardCoppy[:, int(cutX):];
+    licznik = 0
+    pom = [];
+    cutY = card[:, int(h / 4 - 1):int(h / 4)]
+    for item in cutY:
+        licznik = licznik + 1
+        if item == 255:
+            pom.append(licznik)
+    if len(pom) > 0:
+        cutY = pom[0]
+        card = card[int(cutY):, :]
+        cardCoppy = cardCoppy[int(cutY):, :]
+    pom = [];
+
+    startX = 0
+    startY = 3
+
+    finishX = startX
+    finishY = startY
+
+    corner = cardCoppy[startY:startY + 25, startX:startX + 24]
+
+    W = 75
+    H = 125
+
+    mark = corner
+    posBegin = np.float32([[0, 0], [14, 0], [14, 20], [0, 20]])
+    posEnd = np.array([[0, 0], [75 - 1, 0], [75 - 1, 125 - 1], [0, 125 - 1]], np.float32)
+    M = cv2.getPerspectiveTransform(posBegin, posEnd)
+    mark = cv2.warpPerspective(mark, M, (75, 125))
+    mark = preprocess_image(mark, 8, c, 180, debug=False)
+
+    corner = cv2.warpPerspective(corner, M, (75, 125))
+
+    corner = preprocess_image(corner, 3, c, 180, debug=False)
+
+    for x in range(0, 74):
+        find = False
+        for y in range(0, 124):
+            if corner[y, x] == 0:
+                finishX = x
+                find = True
+                break
+        if find:
+            break
+
+    for y in range(0, 124):
+        find = False
+        for x in range(0, 74):
+            if corner[y, x] == 0:
+                finishY = y
+                find = True
+                break
+        if find:
+            break
+
+    corner = corner[finishY:finishY + H, finishX:finishX + W]
+    corner = cv2.resize(corner, (75, 125))
+
+    cv2.imshow("znak", corner)
+    cv2.moveWindow("znak", 75, 300)
+
+
+    return findMarks(corner)
+
