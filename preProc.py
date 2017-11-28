@@ -407,6 +407,8 @@ class PreProc:
             return "Znaczek"
 
     def cutMark(self, image, card,g, c, m):
+        hw = card[1]
+        hh = card[0]
         global x, y
         cardCoppy = card
         h = card.shape[0] - 1
@@ -442,13 +444,14 @@ class PreProc:
         finishX = startX
         finishY = startY
 
-        corner = cardCoppy[startY:startY + 25, startX:startX + 24]
-
+        corner = cardCoppy[startY:, startX:]
+        h = corner.shape[0] -1
+        w = corner.shape[1] -1
         W = 75
         H = 125
 
         mark = corner
-        posBegin = np.float32([[0, 0], [14, 0], [14, 20], [0, 20]])
+        posBegin = np.float32([[int(0.03*w), 0], [int(0.18*w), 0], [int(0.18*w), int(0.1*h)], [0, 0.1*h]])
         posEnd = np.array([[0, 0], [75 - 1, 0], [75 - 1, 125 - 1], [0, 125 - 1]], np.float32)
         M = cv2.getPerspectiveTransform(posBegin, posEnd)
         mark = cv2.warpPerspective(mark, M, (75, 125))
@@ -457,7 +460,7 @@ class PreProc:
         corner = cv2.warpPerspective(corner, M, (75, 125))
 
         corner = self.preprocess_image(corner, 3, c, 180, debug=False)
-
+        cv2.imshow("testtttttt",corner)
         for x in range(0, 74):
             find = False
             for y in range(0, 124):
